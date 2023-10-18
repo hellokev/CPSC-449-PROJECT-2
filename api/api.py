@@ -55,8 +55,8 @@ def register_user(register: Register, request: Request, db: sqlite3.Connection =
         # Inserting registered user to database.
         db.execute("""
             INSERT INTO User (username, password)
-            VALUES (:username, :hashed_password)
-        """, {"username": reg_user["username"], "hashed_password": hash_pw})
+            VALUES (:username, :hash_pw)
+        """, {"username": reg_user["username"], "hash_pw": hash_pw})
 
         for role in reg_user["roles"]:
              db.execute("""
