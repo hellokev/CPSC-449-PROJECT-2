@@ -1,0 +1,23 @@
+{
+    "$schema": "https://www.krakend.io/schema/v2.4/krakend.json",
+    "version": 3,
+    "endpoints": [
+        {
+            "endpoint": "/api/register",
+            "method": "POST",
+            "backend": {
+                "url_pattern": "/register",
+                "method": "POST",
+                "host": [
+                    "http://localhost:5200"
+                ],
+                "extra_config": {
+                    "backend/http": {
+                        "return_error_details": "backend"
+                    }
+                }
+            }
+        }
+    ]
+}
+
