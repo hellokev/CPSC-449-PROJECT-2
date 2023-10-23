@@ -67,7 +67,7 @@ def register_user(register: Register, request: Request, db: sqlite3.Connection =
                 INSERT INTO Roles (r_username, role)
                 VALUES (?,?)
                         """, (reg_user["username"], role)) # will create Separate entries for different roles of Same username
-        claims = generate_claims(reg_user["username"], reg_user["roles"])
+        claims = generate_claims(reg_user["username"], None, reg_user["roles"])
 
         db.commit()
 
