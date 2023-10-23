@@ -41,10 +41,10 @@ logging.config.fileConfig(settings.logging_config, disable_existing_loggers=Fals
 @app.post("/register")
 def register_user(register: Register, request: Request, db: sqlite3.Connection = Depends(get_db)):
         reg_user = dict(register)
-        check_username = db.execute("SELECT * FROM USER WHERE username=:username", reg_user)
+        check_username = db.execute("SELECT * FROM USER WHERE username=?", (reg_user["username"],))  #Accepts a tuple as Input for Sql queries
         
         # if the username exists, then return 409.    
-        if check_username:
+        if check_username.fetchone():             #check username gives out an SQL object need to fetch value from that object, value could be "None" or a record
             raise HTTPException(
                 status_code=status.HTTP_409_CONFLICT,
                 detail="Username taken."
@@ -55,14 +55,14 @@ def register_user(register: Register, request: Request, db: sqlite3.Connection =
         # Inserting registered user to database.
         db.execute("""
             INSERT INTO User (username, password)
-            VALUES (:username, :hash_pw)
-        """, {"username": reg_user["username"], "hash_pw": hash_pw})
+            VALUES (?,?)
+        """, (reg_user['username'], reg_user['password'])) #Corrected the query
 
         for role in reg_user["roles"]:
              db.execute("""
                 INSERT INTO Roles (r_username, role)
-                VALUES (:username, :role)
-                        """, {"username": reg_user["username"], "role": ["role"]})
+                VALUES (?,?)
+                        """, (reg_user["username"], role)) # will create Separate entries for different roles of Same username
         claims = generate_claims(reg_user["username"], reg_user["roles"])
 
         db.commit()
