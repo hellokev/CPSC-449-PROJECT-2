@@ -40,7 +40,7 @@ logging.config.fileConfig(settings.logging_config, disable_existing_loggers=Fals
 # Example: POST http://localhost:5000/register
 @app.post("/register")
 def register_user(register: Register, request: Request, db: sqlite3.Connection = Depends(get_db)):
-        reg_user = register.dict()
+        reg_user = dict(register)
         check_username = db.execute("SELECT * FROM USER WHERE username=:username", reg_user)
         
         # if the username exists, then return 409.    
