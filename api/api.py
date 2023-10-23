@@ -15,7 +15,11 @@ from pydantic_settings import BaseSettings
 class Register(BaseModel):
     username: str
     password: str
-    roles: List[str]    
+    roles: List[str]
+
+class Login(BaseModel):
+    username: str
+    password: str    
 
 class Settings(BaseSettings, env_file=".env", extra="ignore"):
     database: str
@@ -68,3 +72,17 @@ def register_user(register: Register, request: Request, db: sqlite3.Connection =
         db.commit()
 
         return claims
+
+# Task 2: Logging in a student
+# Example: POST http://localhost:5000/login
+# STATUS: INCOMPLETE
+@app.post("/login")
+def login_user(login: Login, request: Request, db: sqlite3.Connection = Depends(get_db)):
+    user = dict(login)
+    
+    fetch_user = ("SELECT * FROM USER WHERE username=:username", user).fetchall()[0]
+    if fetch_user.fetchone():             # Checks for correct login.
+        raise HTTPException(
+            status_code=status.HTTP_400_CONFLICT,
+            detail="Invalid login."
+        )
