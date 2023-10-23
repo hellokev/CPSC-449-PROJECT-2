@@ -5,19 +5,38 @@
         {
             "endpoint": "/api/register",
             "method": "POST",
-            "backend": {
-                "url_pattern": "/register",
-                "method": "POST",
-                "host": [
-                    "http://localhost:5200"
-                ],
-                "extra_config": {
-                    "backend/http": {
-                        "return_error_details": "backend"
+            "backend": [
+                {
+                    "url_pattern": "/register",
+                    "method": "POST",
+                    "host": [
+                        "http://localhost:5200"
+                    ],
+                    "extra_config": {
+                        "backend/http": {
+                            "return_error_details": "backend"
+                        }
                     }
                 }
-            }
+            ]
+        },
+        {
+            "endpoint": "/api/login",
+            "method": "POST",
+            "backend": [
+                {
+                    "url_pattern": "/login",
+                    "method": "POST",
+                    "host": [
+                        "http://localhost:5200"
+                    ],
+                    "extra_config": {
+                        "backend/http": {
+                            "return_error_details": "backend"
+                        }
+                    }
+                }
+            ]
         }
     ]
 }
-
