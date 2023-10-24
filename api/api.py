@@ -60,7 +60,7 @@ def register_user(register: Register, request: Request, db: sqlite3.Connection =
         db.execute("""
             INSERT INTO User (username, password)
             VALUES (?,?)
-        """, (reg_user['username'], reg_user['password'])) #Corrected the query
+        """, (reg_user['username'], hash_pw)) #Corrected the query
 
         for role in reg_user["roles"]:
              db.execute("""
