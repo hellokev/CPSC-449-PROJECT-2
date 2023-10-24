@@ -37,6 +37,7 @@ def generate_claims(username, user_id, roles):
 
     output = json.dumps(token, indent=4)
     print(output)
+    return output
 
 
 if __name__ == "__main__":
