@@ -67,11 +67,10 @@ def register_user(register: Register, request: Request, db: sqlite3.Connection =
                 INSERT INTO Roles (r_username, role)
                 VALUES (?,?)
                         """, (reg_user["username"], role)) # will create Separate entries for different roles of Same username
-        claims = generate_claims(reg_user["username"], None, reg_user["roles"])
 
         db.commit()
 
-        return claims
+        return {"data": "Person added woo ^-^"}
 
 # Example: POST http://localhost:5000/login
 # STATUS: COMPLETE
@@ -103,3 +102,8 @@ def login_user(login: Login, request: Request, db: sqlite3.Connection = Depends(
     claims = generate_claims(user['username'], None, roleDetails[1])
 
     return claims
+
+# Endpoint to test validation. 
+@app.get("/AdminsOnly")
+def admin_check():
+    return {"data": "This page is the cool kids club. Only Admins allowed yo!"}
