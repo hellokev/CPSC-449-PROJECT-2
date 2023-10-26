@@ -7,6 +7,7 @@ import contextlib
 import logging.config
 import sqlite3
 import datetime
+import random
 
 from fastapi import FastAPI, Depends, Request, HTTPException, status
 from pydantic import BaseModel
@@ -22,13 +23,20 @@ class Login(BaseModel):
     password: str    
 
 class Settings(BaseSettings, env_file=".env", extra="ignore"):
-    database: str
+    database: str                                               
+    secondary: str       #Added more database variables to access the replica db
+    secondary2:str
     logging_config: str
 
-def get_db():
-    with contextlib.closing(sqlite3.connect(settings.database)) as db:
+def getPrimary_db():
+     with contextlib.closing(sqlite3.connect(settings.database)) as db:
         db.row_factory = sqlite3.Row
         yield db
+
+def getSecondary_db():
+    with contextlib.closing(sqlite3.connect(random.choice([settings.secondary,settings.secondary2]))) as db:
+            db.row_factory = sqlite3.Row
+            yield db
 
 def get_logger():
     return logging.getLogger(__name__)
@@ -43,7 +51,7 @@ logging.config.fileConfig(settings.logging_config, disable_existing_loggers=Fals
 # Task 1: Registering a student
 # Example: POST http://localhost:5000/register
 @app.post("/register")
-def register_user(register: Register, request: Request, db: sqlite3.Connection = Depends(get_db)):
+def register_user(register: Register, request: Request, db: sqlite3.Connection = Depends(getPrimary_db)):
         reg_user = dict(register)
         check_username = db.execute("SELECT * FROM USER WHERE username=?", (reg_user["username"],))  #Accepts a tuple as Input for Sql queries
         
@@ -75,7 +83,7 @@ def register_user(register: Register, request: Request, db: sqlite3.Connection =
 # Example: POST http://localhost:5000/login
 # STATUS: COMPLETE
 @app.post("/login")
-def login_user(login: Login, request: Request, db: sqlite3.Connection = Depends(get_db)):
+def login_user(login: Login, request: Request, db: sqlite3.Connection = Depends(getSecondary_db)):
     user = dict(login)
     #authenticating user
     fetch_user = db.execute("SELECT * FROM USER WHERE username= ?",(user['username'],)) #will return None if user doesnt exist
