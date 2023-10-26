@@ -5,19 +5,76 @@
         {
             "endpoint": "/api/register",
             "method": "POST",
-            "backend": {
-                "url_pattern": "/register",
-                "method": "POST",
-                "host": [
-                    "http://localhost:5200"
-                ],
-                "extra_config": {
-                    "backend/http": {
-                        "return_error_details": "backend"
+            "backend": [
+                {
+                    "url_pattern": "/register",
+                    "method": "POST",
+                    "host": [
+                        "http://localhost:5000"
+                    ],
+                    "extra_config": {
+                        "backend/http": {
+                            "return_error_details": "backend"
+                        }
                     }
+                }
+            ]
+        },
+        {
+            "endpoint": "/api/login",
+            "method": "POST",
+            "backend": [
+                {
+                    "url_pattern": "/login",
+                    "method": "POST",
+                    "host": [
+                        "http://localhost:5000"
+                    ],
+                    "extra_config": {
+                        "backend/http": {
+                            "return_error_details": "backend"
+                        }
+                    }
+                }
+            ],
+            "extra_config": {
+                "auth/signer": {
+                    "alg": "RS256",
+                    "kid": "key",
+                    "keys_to_sign": ["access_token","refresh_token"],
+                    "jwk_local_path": "./etc/private.json",
+                    "disable_jwk_security": true
+                }
+            }
+            
+        },
+        {
+            "endpoint": "/api/admin",
+            "method": "GET",
+            "backend": [
+                {
+                    "url_pattern": "/AdminsOnly",
+                    "method": "GET",
+                    "host": [
+                        "http://localhost:5000"
+                    ],
+                    "extra_config": {
+                        "backend/http": {
+                            "return_error_details": "backend"
+                        }
+                    }
+                }
+            ],
+            "extra_config": {
+                "auth/validator": {
+                    "alg": "RS256",
+                    "operation_debug": true,
+                    "roles_key": "roles",
+                    "roles": ["admin"],
+                    "jwk_local_path": "./etc/public.json",
+                    "disable_jwk_security": true
                 }
             }
         }
     ]
 }
-
