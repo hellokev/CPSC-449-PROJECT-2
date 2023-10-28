@@ -1,13 +1,10 @@
-
 fuse:
- 
-  dir: "./var/log/secondary/fuse"
+  dir: "./var/secondary/fuse"
   allow-other: false
   debug: false
 
 data:
-  
-  dir: "./var/log/secondary/data"
+  dir: "./var/secondary/data"
   retention: "10m"
   retention-monitor-interval: "1m"
 
@@ -17,17 +14,10 @@ lease:
 
   advertise-url: "http://localhost:20202"
 
-
   hostname: "localhost"
 
- 
   candidate: false
 
 http:
   # Specifies the bind address of the HTTP API server.
   addr: ":20203"
-
-
-  
-
-
