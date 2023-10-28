@@ -1,12 +1,10 @@
 fuse:
- 
-  dir: "./var/log/secondary2/fuse"
+  dir: "./var/secondary2/fuse"
   allow-other: false
   debug: false
 
 data:
-  
-  dir: "./var/log/secondary2/data"
+  dir: "./var/secondary2/data"
   retention: "10m"
   retention-monitor-interval: "1m"
 
@@ -16,10 +14,8 @@ lease:
 
   advertise-url: "http://localhost:20202"
 
-
   hostname: "localhost"
 
- 
   candidate: false
 
 http:
