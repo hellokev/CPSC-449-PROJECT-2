@@ -28,9 +28,7 @@
                     "url_pattern": "/login",
                     "method": "POST",
                     "host": [
-                        "http://localhost:5000",
-                        "http://localhost:5001",
-                        "http://localhost:5002"
+                        "http://localhost:5000"
                     ],
                     "extra_config": {
                         "backend/http": {
@@ -57,6 +55,370 @@
                 {
                     "url_pattern": "/AdminsOnly",
                     "method": "GET",
+                    "host": [
+                        "http://localhost:5000"
+                    ],
+                    "extra_config": {
+                        "backend/http": {
+                            "return_error_details": "backend"
+                        }
+                    }
+                }
+            ],
+            "extra_config": {
+                "auth/validator": {
+                    "alg": "RS256",
+                    "operation_debug": true,
+                    "roles_key": "roles",
+                    "roles": ["student"],
+                    "jwk_local_path": "./etc/public.json",
+                    "disable_jwk_security": true
+                }
+            }
+        },
+        {
+            "endpoint": "/api/classes",
+            "method": "GET",
+            "backend": [
+                {
+                    "url_pattern": "/classes",
+                    "method": "GET",
+                    "host": [
+                        "http://localhost:5000"
+                    ],
+                    "extra_config": {
+                        "backend/http": {
+                            "return_error_details": "backend"
+                        }
+                    }
+                }
+            ],
+            "extra_config": {
+                "auth/validator": {
+                    "alg": "RS256",
+                    "operation_debug": true,
+                    "roles_key": "roles",
+                    "roles": ["student"],
+                    "jwk_local_path": "./etc/public.json",
+                    "disable_jwk_security": true
+                }
+            }
+        },
+        {
+            "endpoint": "/api/enrollments",
+            "method": "POST",
+            "backend": [
+                {
+                    "url_pattern": "/enrollments",
+                    "method": "POST",
+                    "host": [
+                        "http://localhost:5000"
+                    ],
+                    "extra_config": {
+                        "backend/http": {
+                            "return_error_details": "backend"
+                        }
+                    }
+                }
+            ],
+            "extra_config": {
+                "auth/validator": {
+                    "alg": "RS256",
+                    "operation_debug": true,
+                    "roles_key": "roles",
+                    "roles": ["student"],
+                    "jwk_local_path": "./etc/public.json",
+                    "disable_jwk_security": true
+                }
+            }
+        },
+        {
+            "endpoint": "/api/students/{StudentId}/enrollments/{ClassId}",
+            "method": "DELETE",
+            "backend": [
+                {
+                    "url_pattern": "/students/{StudentId}/enrollments/{ClassId}",
+                    "method": "DELETE",
+                    "host": [
+                        "http://localhost:5000"
+                    ],
+                    "extra_config": {
+                        "backend/http": {
+                            "return_error_details": "backend"
+                        }
+                    }
+                }
+            ],
+            "extra_config": {
+                "auth/validator": {
+                    "alg": "RS256",
+                    "operation_debug": true,
+                    "roles_key": "roles",
+                    "roles": ["student"],
+                    "jwk_local_path": "./etc/public.json",
+                    "disable_jwk_security": true
+                }
+            }
+        },
+        {
+            "endpoint": "/api/students/{StudentId}/waiting-list/{ClassId}",
+            "method": "GET",
+            "backend": [
+                {
+                    "url_pattern": "/students/{StudentId}/waiting-list/{ClassId}",
+                    "method": "GET",
+                    "host": [
+                        "http://localhost:5000"
+                    ],
+                    "extra_config": {
+                        "backend/http": {
+                            "return_error_details": "backend"
+                        }
+                    }
+                }
+            ],
+            "extra_config": {
+                "auth/validator": {
+                    "alg": "RS256",
+                    "operation_debug": true,
+                    "roles_key": "roles",
+                    "roles": ["student"],
+                    "jwk_local_path": "./etc/public.json",
+                    "disable_jwk_security": true
+                }
+            }
+        },
+        {
+            "endpoint": "/api/students/{StudentId}/waiting-list/{ClassId}",
+            "method": "DELETE",
+            "backend": [
+                {
+                    "url_pattern": "/students/{StudentId}/waiting-list/{ClassId}",
+                    "method": "DELETE",
+                    "host": [
+                        "http://localhost:5000"
+                    ],
+                    "extra_config": {
+                        "backend/http": {
+                            "return_error_details": "backend"
+                        }
+                    }
+                }
+            ],
+            "extra_config": {
+                "auth/validator": {
+                    "alg": "RS256",
+                    "operation_debug": true,
+                    "roles_key": "roles",
+                    "roles": ["student"],
+                    "jwk_local_path": "./etc/public.json",
+                    "disable_jwk_security": true
+                }
+            }
+        },
+        {
+            "endpoint": "/api/instructors/{InstructorId}/classes",
+            "method": "GET",
+            "backend": [
+                {
+                    "url_pattern": "/instructors/{InstructorId}/classes",
+                    "method": "GET",
+                    "host": [
+                        "http://localhost:5000"
+                    ],
+                    "extra_config": {
+                        "backend/http": {
+                            "return_error_details": "backend"
+                        }
+                    }
+                }
+            ],
+            "extra_config": {
+                "auth/validator": {
+                    "alg": "RS256",
+                    "operation_debug": true,
+                    "roles_key": "roles",
+                    "roles": ["instructor"],
+                    "jwk_local_path": "./etc/public.json",
+                    "disable_jwk_security": true
+                }
+            }
+        },
+        {
+            "endpoint": "/api/classes/{ClassId}/wait-list",
+            "method": "GET",
+            "backend": [
+                {
+                    "url_pattern": "/classes/{ClassId}/wait-list",
+                    "method": "GET",
+                    "host": [
+                        "http://localhost:5000"
+                    ],
+                    "extra_config": {
+                        "backend/http": {
+                            "return_error_details": "backend"
+                        }
+                    }
+                }
+            ],
+            "extra_config": {
+                "auth/validator": {
+                    "alg": "RS256",
+                    "operation_debug": true,
+                    "roles_key": "roles",
+                    "roles": ["instructor"],
+                    "jwk_local_path": "./etc/public.json",
+                    "disable_jwk_security": true
+                }
+            }
+        },
+        {
+            "endpoint": "/api/instructors/{ClassId}/dropped-students",
+            "method": "GET",
+            "backend": [
+                {
+                    "url_pattern": "/instructors/{ClassId}/dropped-students",
+                    "method": "GET",
+                    "host": [
+                        "http://localhost:5000"
+                    ],
+                    "extra_config": {
+                        "backend/http": {
+                            "return_error_details": "backend"
+                        }
+                    }
+                }
+            ],
+            "extra_config": {
+                "auth/validator": {
+                    "alg": "RS256",
+                    "operation_debug": true,
+                    "roles_key": "roles",
+                    "roles": ["instructor"],
+                    "jwk_local_path": "./etc/public.json",
+                    "disable_jwk_security": true
+                }
+            }
+        },
+        {
+            "endpoint": "/api/instructors/{InstructorId}/drop-student/{StudentId}/{ClassId}",
+            "method": "DELETE",
+            "backend": [
+                {
+                    "url_pattern": "/instructors/{InstructorId}/drop-student/{StudentId}/{ClassId}",
+                    "method": "DELETE",
+                    "host": [
+                        "http://localhost:5000"
+                    ],
+                    "extra_config": {
+                        "backend/http": {
+                            "return_error_details": "backend"
+                        }
+                    }
+                }
+            ],
+            "extra_config": {
+                "auth/validator": {
+                    "alg": "RS256",
+                    "operation_debug": true,
+                    "roles_key": "roles",
+                    "roles": ["instructor"],
+                    "jwk_local_path": "./etc/public.json",
+                    "disable_jwk_security": true
+                }
+            }
+        },
+        {
+            "endpoint": "/api/classes/",
+            "method": "POST",
+            "backend": [
+                {
+                    "url_pattern": "/classes/",
+                    "method": "POST",
+                    "host": [
+                        "http://localhost:5000"
+                    ],
+                    "extra_config": {
+                        "backend/http": {
+                            "return_error_details": "backend"
+                        }
+                    }
+                }
+            ],
+            "extra_config": {
+                "auth/validator": {
+                    "alg": "RS256",
+                    "operation_debug": true,
+                    "roles_key": "roles",
+                    "roles": ["admin"],
+                    "jwk_local_path": "./etc/public.json",
+                    "disable_jwk_security": true
+                }
+            }
+        },
+        {
+            "endpoint": "/api/classes/{ClassId}",
+            "method": "DELETE",
+            "backend": [
+                {
+                    "url_pattern": "/classes/{ClassId}",
+                    "method": "DELETE",
+                    "host": [
+                        "http://localhost:5000"
+                    ],
+                    "extra_config": {
+                        "backend/http": {
+                            "return_error_details": "backend"
+                        }
+                    }
+                }
+            ],
+            "extra_config": {
+                "auth/validator": {
+                    "alg": "RS256",
+                    "operation_debug": true,
+                    "roles_key": "roles",
+                    "roles": ["admin"],
+                    "jwk_local_path": "./etc/public.json",
+                    "disable_jwk_security": true
+                }
+            }
+        },
+        {
+            "endpoint": "/api/classes/{ClassId}/instructor",
+            "method": "PUT",
+            "backend": [
+                {
+                    "url_pattern": "/classes/{ClassId}/instructor",
+                    "method": "PUT",
+                    "host": [
+                        "http://localhost:5000"
+                    ],
+                    "extra_config": {
+                        "backend/http": {
+                            "return_error_details": "backend"
+                        }
+                    }
+                }
+            ],
+            "extra_config": {
+                "auth/validator": {
+                    "alg": "RS256",
+                    "operation_debug": true,
+                    "roles_key": "roles",
+                    "roles": ["admin"],
+                    "jwk_local_path": "./etc/public.json",
+                    "disable_jwk_security": true
+                }
+            }
+        },
+        {
+            "endpoint": "/api/classes/{ClassId}/freeze-enrollment",
+            "method": "PUT",
+            "backend": [
+                {
+                    "url_pattern": "/classes/{ClassId}/freeze-enrollment",
+                    "method": "PUT",
                     "host": [
                         "http://localhost:5000"
                     ],
