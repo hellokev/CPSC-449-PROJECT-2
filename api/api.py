@@ -28,6 +28,7 @@ class Settings(BaseSettings, env_file=".env", extra="ignore"):
     secondary: str       #Added more database variables to access the replica db
     secondary2:str
     logging_config: str
+    enrollmentDB : str
 
 def getPrimary_db():
      with contextlib.closing(sqlite3.connect(settings.database)) as db:
@@ -141,7 +142,7 @@ class UpdateInstructor(BaseModel):
     InstructorId: int
 
 def get_db():
-    with contextlib.closing(sqlite3.connect("project1.db")) as db:
+    with contextlib.closing(sqlite3.connect(settings.enrollmentDB)) as db:
         db.row_factory = sqlite3.Row
         yield db
 
